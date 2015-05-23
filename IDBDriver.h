@@ -95,8 +95,8 @@ namespace mysqlx
 		 * @param length		Optional pointer to store the string length.
 		 * @return				A DBResult return code.
 		 */
-		virtual DBResult GetString(unsigned int columnId, const char **pString, size_t *length) =0;
-
+		virtual DBResult GetString(unsigned int columnId, const char **pString, size_t *length) = 0;
+		//virtual DBResult GetString(const char *szColumn, const char **pString, size_t *length) = 0;
 		/**
 		 * @brief Retrieves a database field result as a string, using a 
 		 * user-supplied buffer.  If the field is NULL, an empty string
@@ -123,8 +123,8 @@ namespace mysqlx
 		 * @param pFloat		Pointer to a floating point number to set.
 		 * @return				A DBResult return code.
 		 */
-		virtual DBResult GetFloat(unsigned int columnId, float *pFloat) =0;
-
+		virtual DBResult GetFloat(unsigned int columnId, double *pFloat) = 0;
+		//virtual DBResult GetFloat(const char *szColumn, float *pFloat) = 0;
 		/**
 		 * @brief Retrieves a database field result as an integer.
 		 *
@@ -134,8 +134,8 @@ namespace mysqlx
 		 * @param pInt			Pointer to an integer number to set.
 		 * @return				A DBResult return code.
 		 */
-		virtual DBResult GetInt(unsigned int columnId, int *pInt) =0;
-
+		virtual DBResult GetInt(unsigned int columnId, int *pInt) = 0;
+		//virtual DBResult GetInt(const char *szColumn, int *pInt) = 0;
 		/**
 		 * @brief Returns whether or not a field is NULL.
 		 *

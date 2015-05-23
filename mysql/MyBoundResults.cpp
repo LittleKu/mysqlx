@@ -92,6 +92,24 @@ namespace mysqlx
 		memset(m_pull, 0, sizeof(ResultBind) * m_ColCount);
 
 		m_bUpdatedBinds = false;
+
+		/*assert(m_nmap.init());
+
+		if (m_pRes)
+		{
+			MYSQL_FIELD *f = ::mysql_fetch_field(m_pRes);
+			int i = 1;
+			while (f)
+			{
+				if (f->name)
+				{
+					ke::HashMap<ke::AString, int, StringPolicy>::Insert it = m_nmap.findForAdd(f->name);
+					m_nmap.add(it, ke::AString(f->name), i);
+					f = ::mysql_fetch_field(m_pRes);
+					i++;
+				}
+			}
+		}*/
 	}
 
 	MyBoundResults::~MyBoundResults()
@@ -532,7 +550,7 @@ namespace mysqlx
 		return DBVal_Data;
 	}
 
-	DBResult MyBoundResults::GetFloat(unsigned int id, float *pFloat)
+	DBResult MyBoundResults::GetFloat(unsigned int id, double *pFloat)
 	{
 		BAD_COL_CHECK();
 

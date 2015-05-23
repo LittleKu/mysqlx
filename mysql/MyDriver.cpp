@@ -40,6 +40,11 @@ namespace mysqlx
 	{
 	}
 
+	MyDriver::~MyDriver()
+	{
+		//Shutdown();
+	}
+
 	void CloseDBList(std::list<MyDatabase *> &l)
 	{
 		std::list<MyDatabase *>::iterator iter;

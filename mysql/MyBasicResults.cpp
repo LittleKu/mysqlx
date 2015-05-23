@@ -37,6 +37,23 @@ namespace mysqlx
 		: m_pRes(res)
 	{
 		Update();
+		/*assert(m_nmap.init());
+
+		if (m_pRes)
+		{
+			MYSQL_FIELD *f = ::mysql_fetch_field(m_pRes);
+			int i = 1;
+			while (f)
+			{
+				if (f->name)
+				{
+					ke::HashMap<ke::AString, int, StringPolicy>::Insert it = m_nmap.findForAdd(f->name);
+					m_nmap.add(it, ke::AString(f->name), i);
+					f = ::mysql_fetch_field(m_pRes);
+					i++;
+				}
+			}
+		}*/
 	}
 
 	MyBasicResults::~MyBasicResults()
@@ -192,6 +209,33 @@ namespace mysqlx
 		return DBVal_Data;
 	}
 
+	/*DBResult MyBasicResults::GetString(const char *szColumn, const char **pString, size_t *length)
+	{
+		ke::HashMap<ke::AString, int, StringPolicy>::Result re = m_nmap.find(szColumn);
+		if (!re.found())
+			return DBVal_Error;
+
+		if (re->value >= m_ColCount)
+			return DBVal_Error;
+
+		else if (m_Row[re->value] == NULL) {
+			*pString = "";
+			if (length)
+			{
+				*length = 0;
+			}
+			return DBVal_Null;
+		}
+
+		*pString = m_Row[re->value];
+
+		if (length)
+		{
+			*length = (size_t)m_Lengths[re->value];
+		}
+		return DBVal_Data;
+	}*/
+
 	DBResult MyBasicResults::CopyString(unsigned int columnId,
 		char *buffer,
 		size_t maxlength,
@@ -223,7 +267,7 @@ namespace mysqlx
 		return (size_t)m_Lengths[columnId];
 	}
 
-	DBResult MyBasicResults::GetFloat(unsigned int col, float *fval)
+	DBResult MyBasicResults::GetFloat(unsigned int col, double *fval)
 	{
 		if (col >= m_ColCount)
 		{
@@ -234,10 +278,28 @@ namespace mysqlx
 			return DBVal_Null;
 		}
 
-		*fval = (float)atof(m_Row[col]);
+		*fval = atof(m_Row[col]);
 
 		return DBVal_Data;
 	}
+
+	/*DBResult MyBasicResults::GetFloat(const char *szColumn, float *pFloat)
+	{
+		ke::HashMap<ke::AString, int, StringPolicy>::Result re = m_nmap.find(szColumn);
+		if (!re.found())
+			return DBVal_Error;
+
+		if (re->value >= m_ColCount)
+			return DBVal_Error;
+
+		else if (m_Row[re->value] == NULL) {
+			*pFloat = 0.0f;
+			return DBVal_Null;
+		}
+
+		*pFloat = (float)atof(m_Row[re->value]);
+		return DBVal_Data;
+	}*/
 
 	DBResult MyBasicResults::GetInt(unsigned int col, int *val)
 	{
@@ -254,6 +316,24 @@ namespace mysqlx
 
 		return DBVal_Data;
 	}
+
+	/*DBResult MyBasicResults::GetInt(const char *szColumn, int *pInt)
+	{
+		ke::HashMap<ke::AString, int, StringPolicy>::Result re = m_nmap.find(szColumn);
+		if (!re.found())
+			return DBVal_Error;
+
+		if (re->value >= m_ColCount)
+			return DBVal_Error;
+		else if (m_Row[re->value] == NULL) {
+			*pInt = 0;
+			return DBVal_Null;
+		}
+
+		*pInt = atoi(m_Row[re->value]);
+
+		return DBVal_Data;
+	}*/
 
 	DBResult MyBasicResults::GetBlob(unsigned int col, const void **pData, size_t *length)
 	{

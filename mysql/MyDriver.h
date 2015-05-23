@@ -58,6 +58,7 @@ namespace mysqlx
 	{
 	public:
 		MyDriver();
+		virtual ~MyDriver();
 	public: //IDBDriver
 		IDatabase *Connect(const DatabaseInfo *info, bool persistent, char *error, size_t maxlength);
 		const char *GetIdentifier();

@@ -33,10 +33,22 @@
 #define _INCLUDE_MYSQL_BASIC_RESULTS_H_
 
 #include "MyDatabase.h"
+#include <am-hashmap.h>
+#include <am-string.h>
 
 namespace mysqlx
 {
 	class MyQuery;
+
+	struct StringPolicy
+	{
+		static inline uint32_t hash(const char *key) {
+			return ke::FastHashCharSequence(key, strlen(key));
+		}
+		static inline bool matches(const char *find, const ke::AString &key) {
+			return key.compare(find) == 0;
+		}
+	};
 
 	class MyBasicResults :
 		public IResultSet,
@@ -59,8 +71,11 @@ namespace mysqlx
 		IResultRow *CurrentRow();
 	public: //IResultRow
 		DBResult GetString(unsigned int columnId, const char **pString, size_t *length);
-		DBResult GetFloat(unsigned int columnId, float *pFloat);
+		//DBResult GetString(const char *szColumn, const char **pString, size_t *length);
+		DBResult GetFloat(unsigned int columnId, double *pFloat);
+		//DBResult GetFloat(const char *szColumn, float *pFloat);
 		DBResult GetInt(unsigned int columnId, int *pInt);
+		//DBResult GetInt(const char *szColumn, int *pInt);
 		bool IsNull(unsigned int columnId);
 		DBResult GetBlob(unsigned int columnId, const void **pData, size_t *length);
 		DBResult CopyBlob(unsigned int columnId, void *buffer, size_t maxlength, size_t *written);
@@ -78,6 +93,7 @@ namespace mysqlx
 		unsigned long *m_Lengths;
 		unsigned int m_ColCount;
 		unsigned int m_RowCount;
+		//ke::HashMap<ke::AString, int, StringPolicy> m_nmap;
 	};
 
 	class MyQuery : public IQuery

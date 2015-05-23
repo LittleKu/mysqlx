@@ -33,6 +33,8 @@
 #define _INCLUDE_MYSQL_BOUND_RESULTS_H_
 
 #include "MyDatabase.h"
+#include <am-hashmap.h>
+#include <am-string.h>
 
 namespace mysqlx
 {
@@ -50,6 +52,16 @@ namespace mysqlx
 		unsigned char *blob;
 		size_t length;
 	};
+
+	/*struct StringPolicy
+	{
+		static inline uint32_t hash(const char *key) {
+			return ke::FastHashCharSequence(key, strlen(key));
+		}
+		static inline bool matches(const char *find, const ke::AString &key) {
+			return key.compare(find) == 0;
+		}
+	};*/
 
 	class MyBoundResults :
 		public IResultSet,
@@ -72,12 +84,13 @@ namespace mysqlx
 		IResultRow *CurrentRow();
 	public: //IResultRow
 		DBResult GetString(unsigned int id, const char **pString, size_t *length);
-		DBResult CopyString(unsigned int id,
-			char *buffer,
-			size_t maxlength,
-			size_t *written);
-		DBResult GetFloat(unsigned int id, float *pFloat);
+		//DBResult GetString(const char *szColumn, const char **pString, size_t *length);
+		DBResult GetFloat(unsigned int id, double *pFloat);
+		//DBResult GetFloat(const char *szColumn, float *pFloat);
+		//DBResult GetInt(const char *szColumn, int *pInt);
 		DBResult GetInt(unsigned int id, int *pInt);
+
+		DBResult CopyString(unsigned int id, char *buffer, size_t maxlength, size_t *written);
 		bool IsNull(unsigned int id);
 		size_t GetDataSize(unsigned int id);
 		DBResult GetBlob(unsigned int id, const void **pData, size_t *length);
@@ -100,6 +113,7 @@ namespace mysqlx
 		unsigned int m_RowCount;
 		unsigned int m_CurRow;
 		bool m_bUpdatedBinds;
+		//ke::HashMap<ke::AString, int, StringPolicy> m_nmap;
 	};
 }
 
