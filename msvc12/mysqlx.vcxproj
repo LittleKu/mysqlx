@@ -26,6 +26,7 @@
     <ClInclude Include="..\mysql\MyDriver.h" />
     <ClInclude Include="..\mysql\MyStatement.h" />
     <ClInclude Include="..\platform.h" />
+    <ClInclude Include="..\sh_list.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{26AEFC9C-2619-4539-BD46-6E84346C286D}</ProjectGuid>

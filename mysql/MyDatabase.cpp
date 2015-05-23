@@ -90,15 +90,15 @@ namespace mysqlx
 	MyDatabase::MyDatabase(MYSQL *mysql, const DatabaseInfo *info, bool persistent)
 		: m_mysql(mysql), m_bPersistent(persistent)
 	{
-		m_Host.assign(info->host);
-		m_Database.assign(info->database);
-		m_User.assign(info->user);
-		m_Pass.assign(info->pass);
+		m_Host = info->host;
+		m_Database = info->database;
+		m_User = info->user;
+		m_Pass = info->pass;
 
-		m_Info.database = m_Database.c_str();
-		m_Info.host = m_Host.c_str();
-		m_Info.user = m_User.c_str();
-		m_Info.pass = m_Pass.c_str();
+		m_Info.database = m_Database.chars();
+		m_Info.host = m_Host.chars();
+		m_Info.user = m_User.chars();
+		m_Info.pass = m_Pass.chars();
 		m_Info.driver = NULL;
 		m_Info.maxTimeout = info->maxTimeout;
 		m_Info.port = info->port;

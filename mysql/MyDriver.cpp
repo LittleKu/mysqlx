@@ -45,9 +45,9 @@ namespace mysqlx
 		//Shutdown();
 	}
 
-	void CloseDBList(std::list<MyDatabase *> &l)
+	void CloseDBList(List<MyDatabase *> &l)
 	{
-		std::list<MyDatabase *>::iterator iter;
+		List<MyDatabase *>::iterator iter;
 		for (iter = l.begin(); iter != l.end(); iter++)
 		{
 			MyDatabase *db = (*iter);
@@ -61,7 +61,7 @@ namespace mysqlx
 
 	void MyDriver::Shutdown()
 	{
-		std::list<MyDatabase *>::iterator iter;
+		List<MyDatabase *>::iterator iter;
 		CloseDBList(m_PermDbs);
 	}
 
@@ -148,7 +148,7 @@ namespace mysqlx
 		if (persistent)
 		{
 			/* Try to find a matching persistent connection */
-			std::list<MyDatabase *>::iterator iter;
+			List<MyDatabase *>::iterator iter;
 			for (iter = m_PermDbs.begin();
 				iter != m_PermDbs.end();
 				iter++)

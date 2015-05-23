@@ -45,11 +45,13 @@
 # include <my_sys.h>
 #endif
 
-#include <string>
-#include <list>
+#include <sh_list.h>
 #include <am-thread-utils.h>
+#include <am-string.h>
 
 #define M_CLIENT_MULTI_RESULTS    ((1) << 17)  /* Enable/disable multi-results */
+using namespace SourceHook;
+
 namespace mysqlx
 {
 	class MyDatabase;
@@ -71,8 +73,8 @@ namespace mysqlx
 		void RemoveFromList(MyDatabase *pdb, bool persistent);
 	private:
 		ke::Mutex m_Lock;
-		std::list<MyDatabase *> m_TempDbs;
-		std::list<MyDatabase *> m_PermDbs;
+		List<MyDatabase *> m_TempDbs;
+		List<MyDatabase *> m_PermDbs;
 	};
 
 	unsigned int strncopy(char *dest, const char *src, size_t count);

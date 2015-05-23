@@ -76,10 +76,10 @@ namespace mysqlx
 
 		/* ---------- */
 		DatabaseInfo m_Info;
-		std::string m_Host;
-		std::string m_Database;
-		std::string m_User;
-		std::string m_Pass;
+		ke::AString m_Host;
+		ke::AString m_Database;
+		ke::AString m_User;
+		ke::AString m_Pass;
 		bool m_bPersistent;
 	};
 

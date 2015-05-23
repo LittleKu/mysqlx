@@ -71,5 +71,8 @@
     <ClInclude Include="..\mysql\MyStatement.h">
       <Filter>DataBase\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\sh_list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
